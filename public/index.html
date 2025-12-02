@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Management</title>
+  <!-- For Node, static is served from /public so this path is correct -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-bg"></div>
+
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>Employee Management System</h1>
+        <p class="subtitle">Manage employees easily – add, edit, search & filter.</p>
+      </div>
+    </header>
+
+    <!-- Filters / Search -->
+    <section class="card filters-card">
+      <h2>Search & Filter</h2>
+      <div class="filters-row">
+        <div class="form-row">
+          <label for="search-text">Search (Name / Email)</label>
+          <div class="search-box">
+            <input
+              type="text"
+              id="search-text"
+              placeholder="Type a name or email..."
+            />
+            <button type="button" id="search-btn">Search</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="filter-department">Department</label>
+          <select id="filter-department">
+            <option value="ALL">All Departments</option>
+            <option value="IT">IT</option>
+            <option value="Development">Development</option>
+            <option value="QA">QA</option>
+            <option value="Support">Support</option>
+            <option value="HR">HR</option>
+            <option value="Finance">Finance</option>
+            <option value="Sales">Sales</option>
+            <option value="Operations">Operations</option>
+            <option value="R&D">R&amp;D</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="filter-role">Role</label>
+          <select id="filter-role">
+            <option value="ALL">All Roles</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Backend Developer">Backend Developer</option>
+            <option value="Full Stack Developer">Full Stack Developer</option>
+            <option value="DevOps Engineer">DevOps Engineer</option>
+            <option value="Data Engineer">Data Engineer</option>
+            <option value="Data Scientist">Data Scientist</option>
+            <option value="QA Engineer">QA Engineer</option>
+            <option value="UI/UX Designer">UI/UX Designer</option>
+            <option value="Project Manager">Project Manager</option>
+            <option value="Business Analyst">Business Analyst</option>
+            <option value="System Administrator">System Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="filter-status">Status</label>
+          <select id="filter-status">
+            <option value="ALL">All</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Employee Form -->
+    <section class="card">
+      <h2 id="form-title">Add New Employee</h2>
+      <form id="employee-form">
+        <input type="hidden" id="employee-id" />
+
+        <div class="grid-two">
+          <div class="form-row">
+            <label>Name</label>
+            <input type="text" id="name" required />
+          </div>
+
+          <div class="form-row">
+            <label>Email</label>
+            <input type="email" id="email" required />
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="form-row">
+            <label>Phone</label>
+            <input
+              type="tel"
+              id="phone"
+              required
+              maxlength="10"
+              pattern="[0-9]{10}"
+              placeholder="10-digit mobile number"
+            />
+          </div>
+
+          <div class="form-row">
+            <label>Role</label>
+            <select id="role">
+              <option value="">Select role</option>
+              <option value="Software Engineer">Software Engineer</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Backend Developer">Backend Developer</option>
+              <option value="Full Stack Developer">Full Stack Developer</option>
+              <option value="DevOps Engineer">DevOps Engineer</option>
+              <option value="Data Engineer">Data Engineer</option>
+              <option value="Data Scientist">Data Scientist</option>
+              <option value="QA Engineer">QA Engineer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Project Manager">Project Manager</option>
+              <option value="Business Analyst">Business Analyst</option>
+              <option value="System Administrator">System Administrator</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="form-row">
+            <label>Department</label>
+            <select id="department">
+              <option value="">Select department</option>
+              <option value="IT">IT</option>
+              <option value="Development">Development</option>
+              <option value="QA">QA</option>
+              <option value="Support">Support</option>
+              <option value="HR">HR</option>
+              <option value="Finance">Finance</option>
+              <option value="Sales">Sales</option>
+              <option value="Operations">Operations</option>
+              <option value="R&D">R&amp;D</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Salary</label>
+            <input type="number" id="salary" />
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="form-row">
+            <label>Date of Joining</label>
+            <input type="date" id="date_of_joining" />
+          </div>
+
+          <div class="form-row">
+            <label>Status</label>
+            <select id="status">
+              <option value="Active" selected>Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="save-btn">Save</button>
+          <button type="button" id="cancel-edit-btn" class="secondary hidden">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Employee List -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Employees</h2>
+        <span id="employee-count" class="pill">0 employees</span>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Dept</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employee-table-body">
+            <!-- Filled by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
